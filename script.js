@@ -6,200 +6,122 @@ Date last edited: 03/27/2026
 Version: 2.0
 Descriptiton: Javescript for HW2
 */
-function showDate()     
-        {
-            const d = new Date();
-            document.getElementById("today").innerHTML =
-                d.toLocaleDateString('en-US', 
-                {
-                    weekday: 'long',
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                }
-            );
-            const dobInput = document.getElementById("dob");
-
-            const maxDate = new Date();
-            const minDate = new Date();
-            minDate.setFullYear(maxDate.getFullYear() - 120);
-
-                dobInput.max = maxDate.toISOString().split("T")[0];
-                dobInput.min = minDate.toISOString().split("T")[0];
-        }        
-function validatePassword()     
-            {
-                const pw = document.querySelector('input[name="password"]').value;
-                const cpw = document.querySelector('input[name="confirm_password"]').value;
-                const userId = document.querySelector('input[name="user_id"]').value.toLowerCase();
-                const errorBox = document.getElementById("passwordError");
-
-                errorBox.innerText = "";
-
-                        if (!pw || !cpw)
-                        {
-                                errorBox.style.color = "red";  
-                                errorBox.innerText = ("Password fields cannot be empty.");
-                                  return false;      
-                        }
-                        if (pw !== cpw) 
-                        {
-                                errorBox.style.color = "red";
-                                errorBox.innerText = ("Passwords do not match.");
-                                  return false;
-                        }
-                        if (pw.toLowerCase() === userId)
-                        {
-                                errorBox.style.color = "red";
-                                errorBox.innerText = ("Password cannot contain your User ID.");
-                                  return false;
-                        }
-                        if (userId && pw.toLowerCase().includes(userId))
-                        {
-                                errorBox.style.color = "red";
-                                errorBox.innerText = ("Password cannot contain your User ID.");
-                                  return false;
-                        }
-                    
-                errorBox.style.color = "green";
-                errorBox.innerText = "Password match";
-                return true;
-            }
-function formatDOB()
-         {
-                 return true;
-         }        
-     
-function validateDOB()
-        {
-                const dobInput = document.getElementById("dob").value;
-                if (!dobInput) 
-                {
-                        alert("Please enter your date of birth.");
-                        return false;
-                }
-                
-
-                const dob = new Date(dobInput);
-                const today = new Date();
-                today.setHours(0,0,0,0);
-                const minDate = new Date();
-                minDate.setFullYear(today.getFullYear() - 120);
-
-                if (dob < minDate)
-                        {
-                                alert("Date of birth cannot be more than 120 years ago.");
-                                return false;
-                        }
-                if (dob > today)
-                        {
-                                alert("Date of birth cannot be in the future.");
-                                return false;
-                        }
-                return true;
-        }
-function validateForm()
-        {
-                return validatePassword() && validateDOB();
-        }
-window.onload = function()
-{
-        showDate();
-        
-document.querySelector('input[name="phone"]').addEventListener('input', function(e)
-        {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length >= 6)
-                        e.target.value = value.slice(0,3) + '-' + value.slice(3,6) + '-' + value.slice(6,10);
-                                else if (value.length >= 3)
-                                        e.target.value = value.slice(0,3) + '-' + value.slice(3);
-                                        
-                else
-                        e.target.value = value;                    
-        });
-document.getElementById("ssn").addEventListener("input", function(e)
-        {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length >=5)
-                        e.target.value = value.slice(0,3) + '-' + value.slice(3,5) + '-' + value.slice(5,9);
-                                else if (value.length >= 3)
-                                        e.target.value = value.slice(0,3) + '-' + value.slice(3);
-                else
-                        e.target.value = value;
-        });
-        
-document.querySelector('input[name="user_id"]').addEventListener('input', function(e)
-        {
-                e.target.value = e.target.value.toLowerCase();
-        });
-};    
-
-function showReview()
-{
-        if (!validateForm())
-        {
-                return;
-        }
-        
-        let content = "";
-
-        const first = document.querySelector('[name="first_name"]').value;
-        const mi = document.querySelector('[name="middle_initial"]').value;
-        const last = document.querySelector('[name="last_name"]').value;
-        const fullName = mi ? `${first} ${mi} ${last}` : `${first} ${last}`;
-        content += `<strong>Name:</strong> ${fullName}<br>`;
-
-        const dob = document.getElementById("dob").value;
-        let formattedDOB = "";
-
-                if (dob)
-                {
-                        const parts = dob.split("-");
-                        formattedDOB = `${parts[1]}/${parts[2]}/${parts[0]}`;
-                }
-        content += `<strong>DOB:</strong> ${formattedDOB}<br>`;
-
-        const email = document.querySelector('[name="email"]').value;
-        const phone = document.querySelector('[name="phone"]').value;
-        content += `<strong>Email:</strong> ${email}<br>`;
-        content += `<strong>Phone:</strong> ${phone}<br>`;
-
-        const address = document.querySelector('[name="address1"]').value;
-        const city = document.querySelector('[name="city1"]').value;
-        const state = document.querySelector('[name="state1"]').value;
-        const zip = document.querySelector('[name="zip1"]').value;
-        content += `<strong>Address:</strong> ${address}, ${city}, ${state} ${zip}<br>`;
-
-        const gender = document.querySelector('input[name="gender"]:checked');
-        content += `<strong>Gender:</strong> ${gender ? gender.value : ""}<br>`;
-
-        const consent = document.querySelector('input[name="consent"]:checked');
-        content += `<strong>Consent:</strong> ${consent ? consent.value : ""}<br>`;
-        
-        const insurance = document.querySelector('input[name="insurance"]:checked');
-        content += `<strong>Insurance:</strong> ${insurance ? insurance.value : ""}<br>`;
-
-        const conditions = document.querySelectorAll('input[name="conditions"]:checked');
-        let condList = [];
-        conditions.forEach(c => condList.push(c.value));
-
-        content += `<strong>Medical History:</strong> ${condList.length ? condList.join(", ") : "None"}<br>`;
-   
-        const pain = document.querySelector('[name="pain_scale"]').value;
-        content += `<strong>Pain Level:</strong> ${pain}<br>`;
-    
-        const user = document.querySelector('[name="user_id"]').value;
-        content += `<strong>User ID:</strong> ${user}<br>`;
-
-        const reason = document.querySelector('[name="reason_for_visit"]').value;
-        content += `<strong>Reason:</strong> ${reason}<br>`;
-        
-        document.getElementById("reviewContent").innerHTML = content;
-        document.getElementById("reviewSection").style.display = "block";
+function updateSlider(value) {
+    document.getElementById("healthValue").textContent =
+        "$" + Number(value).toLocaleString();
 }
 
-function updatePainValue()
-{
-        const value = document.getElementById("pain").value;
-        document.getElementById("painValue").innerText = value;
+function clearReview() {
+    document.getElementById("reviewOutput").innerHTML = "";
+    document.getElementById("healthValue").textContent = "$50,000";
+}
+
+function reviewForm() {
+    const form = document.getElementById("form");
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const firstName = document.getElementById("fname").value.trim();
+    const middleInitial = document.getElementById("mi").value.trim();
+    const lastName = document.getElementById("lname").value.trim();
+    const dob = document.getElementById("dob").value;
+    const idNumber = document.getElementById("ssn").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const address1 = document.getElementById("address1").value.trim();
+    const address2 = document.getElementById("address2").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value;
+    const zip = document.getElementById("zip").value.trim();
+    const salary = document.getElementById("salary").value;
+    const symptoms = document.getElementById("symptoms").value.trim();
+    const userIdInput = document.getElementById("userid");
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    userIdInput.value = userIdInput.value.toLowerCase();
+    const userId = userIdInput.value.trim();
+
+    const today = new Date();
+    const birthDate = new Date(dob);
+    const minDate = new Date();
+    minDate.setFullYear(today.getFullYear() - 120);
+
+    if (birthDate > today) {
+        alert("Date of birth cannot be in the future.");
+        return;
+    }
+
+    if (birthDate < minDate) {
+        alert("Date of birth cannot be more than 120 years ago.");
+        return;
+    }
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#%^&*()\-_\+=\\\/><\.,`~])[^\"]{8,30}$/;
+
+    if (!passwordPattern.test(password)) {
+        alert("Password must be 8 to 30 characters and include an uppercase letter, lowercase letter, number, and special character. Double quotes are not allowed.");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
+
+    const lowerPassword = password.toLowerCase();
+    if (userId !== "" && lowerPassword.includes(userId.toLowerCase())) {
+        alert("Password cannot contain your user ID.");
+        return;
+    }
+
+    if (firstName !== "" && lowerPassword.includes(firstName.toLowerCase())) {
+        alert("Password cannot contain your first name.");
+        return;
+    }
+
+    if (lastName !== "" && lowerPassword.includes(lastName.toLowerCase())) {
+        alert("Password cannot contain your last name.");
+        return;
+    }
+
+    const checkedHistory = Array.from(document.querySelectorAll('input[name="history"]:checked'))
+        .map(item => item.value);
+
+    const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
+    const vaccinated = document.querySelector('input[name="vaccinated"]:checked')?.value || "";
+    const insurance = document.querySelector('input[name="insurance"]:checked')?.value || "";
+
+    const reviewHtml = `
+        <strong>PLEASE REVIEW THIS INFORMATION</strong><br><br>
+
+        <strong>Name:</strong> ${firstName} ${middleInitial} ${lastName}<br>
+        <strong>Date of Birth:</strong> ${dob}<br>
+        <strong>ID Number:</strong> ${idNumber}<br><br>
+
+        <strong>Email Address:</strong> ${email}<br>
+        <strong>Phone Number:</strong> ${phone}<br><br>
+
+        <strong>Address:</strong><br>
+        ${address1}<br>
+        ${address2 ? address2 + "<br>" : ""}
+        ${city}, ${state} ${zip.substring(0, 10)}<br><br>
+
+        <strong>Medical History:</strong> ${checkedHistory.length ? checkedHistory.join(", ") : "None selected"}<br>
+        <strong>Gender:</strong> ${gender}<br>
+        <strong>Vaccinated:</strong> ${vaccinated}<br>
+        <strong>Insurance:</strong> ${insurance}<br>
+        <strong>Desired Salary:</strong> $${Number(salary).toLocaleString()}<br><br>
+
+        <strong>Current Symptoms:</strong><br>
+        ${symptoms ? symptoms : "No symptoms entered."}<br><br>
+
+        <strong>User ID:</strong> ${userId}<br>
+        <strong>Password:</strong> ${password}
+    `;
+
+    document.getElementById("reviewOutput").innerHTML = reviewHtml;
 }

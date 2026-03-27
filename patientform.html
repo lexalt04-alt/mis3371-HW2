@@ -1,1 +1,300 @@
+<!--
+Author: Alex Nguyen
+Program name: patientform.html
+Date created: 03/20/2026
+Date last edited: 03/27/2026
+Version: 1.0
+Description: MIS3371 Homework 2 Patient registration form with validation, review section, and JavaScript features.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trinity Med Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body onload="showDate()">
+
+<!-- ================= BANNER ================= -->
+<div id="banner">
+    <img src="Medical Caduceus logo.png" style="width:200px; height:auto;" alt="Aegis Medical Logo">
+    <div id="banner-text">
+        <h1>
+            <span class="aegis">Trinity</span>
+            <span class="medical">Medical</span>
+        </h1>
+        <p>Today is: <span id="today"></span></p>
+    </div>
+</div>
+
+<h2>Registration Form</h2>
+
+<!-- ================= FORM ================= -->
+<form action="thankyou.html" onsubmit="return validateForm()">
+
+<table class="form-table">
+    
+<!-- NAME -->
+<tr>
+      <td colspan="2">First Name <span class="required">*</span></td>
+      <td>M.I.</td>
+      <td colspan="3">Last Name <span class="required">*</span></td>
+</tr>
+    
+<tr>
+    <td colspan="2">
+        <input type="text" name="first_name" maxlength="30" required
+            pattern="[A-Za-z'-]{1,30}"
+            title="Enter 1-30 characters. Letters, apostrophes, and dashes only">
+    </td>
+    
+     <td colspan="1">
+        <input type="text" name="middle_initial" maxlength="1"
+            pattern="[A-Za-z]?"
+            title="Enter one letter only">
+    </td>
+    
+  <td colspan="3">
+    <input type="text" name="last_name" maxlength="30" required
+        pattern="[A-Za-z0-9'-]{1,30}"
+        title="Enter 1-30 characters, Letters, apostrophes, and dashes, and suffix numbers allowed">
+  </td>
+</tr>
+<!-- DOB / SSN -->
+<tr>
+    <td colspan="3">Date of Birth (MM/DD/YYYY) <span class="required">*</span></td>
+    <td colspan="3">Social Security Number <span class="required">*</span></td>
+</tr>
+<tr>
+    <td colspan="3">
+        <input type="date" name="dob" id="dob" required
+                min="1900-01-01"
+                max="2026-12-31"
+                title="Select a valid birth date">
+    </td>
+    <td colspan="3">
+        <input type="password" name="ssn" id="ssn"
+            placeholder="xxx-xx-xxxx" 
+            pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}"
+            title="Format: 123-45-6789" 
+            required>
+    </td>
+</tr>
+
+<!-- ================= ADDRESS ================= -->
+<tr>
+    <td colspan="3">Address 1 <span class="required">*</span></td>
+    <td>City <span class="required">*</span></td>
+    <td>State <span class="required">*</span></td>
+    <td>Zip <span class="required">*</span></td>
+</tr>
+<tr>
+    <td colspan="3">
+        <input type="text" name="address1" maxlength="30" required
+               pattern="[A-Za-z0-9\s\.\-#]{5,30}"
+               title="5-30 characters. Letters, numbers, spaces, ., -, # allowed">
+    </td>
+    <td>
+        <input type="text" name="city1" maxlength="30" required
+               pattern="[A-Za-z\s]{2,30}" 
+               title="City must be 2-30 letters only" >
+    </td>
+    <td>
+        <select name="state1" required>
+            <option value="" selected disabled>Select</option>
+                <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+                <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+                <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+                <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+                <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+                <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+                <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+                <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+                <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+                <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+                <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+                <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
+                <option>Wisconsin</option><option>Wyoming</option>
+        </select>
+    </td>
+    <td><input type="text" name="zip1" maxlength="10"
+                pattern="[0-9]{5}(-[0-9]{4})?"
+                title="Enter 5-digit ZIP or ZIP+4"
+                required></td>
+</tr>
+
+<tr>
+    <td colspan="3">Address 2</td>
+    <td>City</td>
+    <td>State</td>
+    <td>Zip</td>
+</tr>
+<tr>
+    <td colspan="3">
+    <input type="text" maxlength="30"
+           pattern="[A-Za-z0-9\s\.\-#]{0,30}"
+           title="Optional. Letters, numbers, spaces, ., -, # allowed">
+    </td>
+    <td>
+        <input type="text" maxlength="30"
+               pattern="[A-Za-z\s]{0,30}"
+               title="Optional city (letters only)">
+    </td>
+    <td>
+        <select>
+            <option>Select</option>
+                <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+                <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+                <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+                <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+                <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+                <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+                <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+                <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+                <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+                <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+                <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+                <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
+                <option>Wisconsin</option><option>Wyoming</option>
+        </select>
+    </td>
+    <td><input type="text" maxlength="10"></td>
+</tr>
+
+<!-- CONTACT -->
+<tr>
+    <td colspan="2">Email <span class="required">*</span></td>
+    <td colspan="3">Phone Number <span class="required">*</span></td>
+</tr>
+<tr>
+    <td colspan="2"><input type="email" name="email" required
+                            maxlength="50"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}"
+                            title="Enter a valid email (example: name@email.com)">
+    </td>
+    <td colspan="3"><input type="tel" name="phone"
+                            placeholder="123-456-7890"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            maxlength="12"
+                            title="Format: 123-456-7890"
+                            required></td>
+</tr>
+
+<!-- LOGIN -->
+<tr>
+    <td>User ID <span class="required">*</span></td>
+    <td colspan="2">Password <span class="required">*</span></td>
+    <td colspan="2">Confirm Password <span class="required">*</span></td>
+</tr>
+<tr>
+    <td><input type="text" name="user_id" maxlength="20" required
+               pattern="^[a-zA-Z][a-zA-Z0-9_-]{4,19}$"
+               title="User ID must be 5-20 characters, letters and numbers only (no spaces)">        
+    </td>
+    
+    <td colspan="2"><input type="password" name="password" required
+                           pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&]).{8,20}$" 
+                           title="Password must be 8-20 characters. Must include uppercase, lowercase, number, and special character"                       
+                           oninput="validatePassword()">
+    </td>
+    <td colspan="2"><input type="password" name="confirm_password" required
+                           oninput="validatePassword()">
+        
+        <div id="passwordError" style="color:red; font-size:12px;"></div>
+    </td>
+</tr>
+
+<!-- RADIOS -->
+<tr>
+    <td colspan="6">
+        Gender <span class="required">*</span>:
+        <input type="radio" name="gender" value="Male" required> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <input type="radio" name="gender" value="Other"> Other
+    </td>
+</tr>
+
+<tr>
+    <td colspan="6">
+        Do you have health insurance? <span class="required">*</span>
+        <input type="radio" name="insurance" value="Yes" required> Yes
+        <input type="radio" name="insurance" value="No"> No
+    </td>
+</tr>
+
+<tr>
+    <td colspan="6">
+        Do you consent to the release of medical information? <span class="required">*</span>
+        <input type="radio" name="consent" value="Yes" required> Yes
+        <input type="radio" name="consent" value="No"> No
+    </td>
+</tr>
+
+<!-- SLIDER -->
+<tr>
+    <td colspan="6">
+        On a scale of 1 (None) to 10 (Extremely), how much pain are you feeling currently? <span class="required">*</span><br><br>
+
+        <div style="width:25%;">
+            <span style="float:left;">1</span>
+            <span style="float:right;">10</span>
+            
+            <input type="range" name="pain_scale" id="pain" 
+                   min="1" max="10" value="5"
+                   oninput="updatePainValue()"
+                   style="width:100%;" required>
+        </div> 
+        
+            Selected Value: <span id="painValue">5</span>
+    </td>
+</tr>
+    
+<!-- MEDICAL -->
+<tr>
+    <td colspan="3">
+        <strong class="section-title">Medical History</strong><br>
+        <input type="checkbox" name="conditions" value="Diabetes"> Diabetes<br>
+        <input type="checkbox" name="conditions" value="High Blood Pressure"> High Blood Pressure<br>
+        <input type="checkbox" name="conditions" value="Heart Disease"> Heart Disease<br>
+        <input type="checkbox" name="conditions" value="Asthma"> Asthma<br>
+        <input type="checkbox" name="conditions" value="Arthritis"> Arthritis
+    </td>
+
+    <td colspan="3" class="reason-cell">
+        <strong class="section-title">Reason for Visit <span class="required">*</span></strong><br>
+        <textarea class="fixed-textarea" name="reason_for_visit" required></textarea>
+    </td>
+</tr>
+
+<!-- BUTTONS -->
+<tr>
+    <td colspan="6" class="buttons">
+        <input type="reset" value="Restart">
+        <input type="button" value="Review" onclick="showReview()">
+        <input type="submit" value="Submit →">
+    </td>
+</tr>
+
+</table>
+</form>
+<!-- ================= REVIEW DISPLAY ================= -->
+    
+<div id="reviewSection" style="margin-top:20px; border:1px solid black; padding:15px; display:none;">
+        <h3>PLEASE REVIEW THIS INFORMATAION BEFORE SUBMITTING</h3>
+        <div id="reviewContent"></div>
+</div>
+    
+  <!-- Footer -->
+    <div id="footer">
+    Trinity Med Center | 7293 Trinity Rd | Galveston, TX 77297 |
+    <p>Need assistance? <button onclick="alert('Contact us at support@trinitymedical.com')">Contact Us</button></p>
+	<div>
+
+<!-- End of patient-form.html -->
+<script src="script.js"></script>
+</body>
+</html>
+ 
+</body>
+</html>

@@ -5,157 +5,72 @@ Date created: 03/22/2026
 Date last edited: 03/27/2026
 Version: 2.0
 Description: CSS for HW2
+*/
 
-
-body
-  {
-    background-color: #DCDCF7;
-    font-family: Georgia, serif;
-    color: #000;
-  }
-
-.aegis
-  {  
-    color: #004483;
-  }
-.medical
-  {
-    color: #C8102E;
-  } 
-
-h1
-  {
-    color: #0b3c6d;
-  } 
-h2
-  {
-    color: #000;
-    text-align: left;
-  }
-
-.required
+*/
+body 
 {
-  color: #FF0000;
-  font-weight: bold;
+  background-color: #f8f4ff;
+  font-family: Helvetica, sans-serif;
 }
 
-#banner 
-  {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 3px solid #0b3c6d;
-  } 
-
-#banner img 
-  {
-    height: 70px;
-    margin-right:20px;
-  }
-
-.form-table
-  {
-    width: 70%;
-    margin-left: 20px;
-    margin-right: auto;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
-
-.form-table td
-  {
-    vertical-align: top;
-    padding: 2px 4px;
-  }
-
-input[type="text"],
-input[type="email"],    
-input[type="password"],
-input[type="tel"],
-input[type="date"],
-textarea,
-select
-  {
-    width:100%;
-    padding:4px;
-    background-color:#7fa9dd;
-    border: 1px solid #333;
-    box-sizing: border-box;
-  }
-
-textarea
-  {
-    resize: none;
-  }
-
-.buttons
-  {
-    text-align: left;
-    padding-left: 0;
-  }
-
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-button
-  {
-    padding: 6px 14px;
-    background-color: #7a8793;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-  }
-input[type="submit"]
-  {
-    background-color: #28A745;
-  }
-input[type="submit"]:hover
-  {
-    background-color: #218838;
-  }
-input[type="reset"]
- {
-   background-color: #DC3545;
- }
-input[type="reset"]:hover
-  {
-    background-color: #C82333;
-  }
-input[type="reset"]
-  {
-    margin-right: 10px;
-  }
-input[type="button"]
+#header 
 {
-  background-color: #FFC107;
-}
-input[type="button"]:hover
-{
-  background-color: #E0A800;
+  text-align: center;
+  background-color:#5b479a;
+  font-family: "Rockwell", serif;
+  color: #f8f4ff;
+  padding: 20px;
 }
 
-.fixed-textarea
-  {
-    width: 100%;
-    height: 120px;
-    resize: none;
-    box-sizing: border-box;
-  }
-
-.reason-cell
-  {
-    padding-left: 40px;
-  }
-.section-title
-{
-  color: #191970;
+h2 {
+    color: #003366;
 }
 
-#footer
-  {
-    margin-top: 30px;
-    padding: 15px;
-    text-align: center;
-    background-color: #6f9cd6;
-  }
+.logo 
+{
+  width: 80px;
+}
+
+table
+{
+  margin: auto;
+  font-family: "Georgia", serif;
+  color: #231f30;
+  background-color: rgb(165,133,201);
+  padding: 15px;
+}
+
+th
+{
+  color: #786b9e;
+  font-family: "Rockwell", serif;
+  margin: auto;
+  padding: 10px;
+}
+
+#footer 
+{
+  text-align: center;
+  font-family: "Georgia", serif;
+  color: #f8f4ff;
+  background-color: #5b479a;
+  padding: 10px;
+}
+
+.slider
+{
+  width:100%;
+}
+
+a
+{
+  color: orange;
+}
+
+a
+{
+  color: blue;
+}
+
+/* End of style.css document */

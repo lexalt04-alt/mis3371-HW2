@@ -30,7 +30,13 @@ document.getElementById("review-section").scrollIntoView({ behavior: "smooth" })
     <div id="header">
         <img src="logo.png" alt="Trinity Med Logo" id="logo">
         <h1>Trinity Med</h1>
-        <p id="date"></p>
+           <div id="date">
+            Today is:
+            <script>
+                var today = new Date();
+                document.write(today.toDateString());
+            </script>
+        </div>
     </div>
 
     <!-- Main form section -->
